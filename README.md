@@ -9,12 +9,42 @@ This project is an open-source alternative software, NOT the original software p
 * for other smart screens, contact your reseller
 ---
 
+clach04 hacks for simple clock editing without a real display or statistics.
+Mostly in support of :
+
+  * Support turing-smart-screen themes https://github.com/clach04/cyd_clocks/issues/33
+  * Theme support https://github.com/clach04/cyd_clocks/issues/39
+
+## Quick and dirty setup
+
+Issue:
+
+    git clone https://github.com/clach04/turing-smart-screen-python.git
+    cd turing-smart-screen-python.git
+    py -3 -m venv py3venv
+    call py3venv\Scripts\activate.bat
+
+    echo from https://github.com/clach04/cyd_clocks/issues/33
+
+    set SIM_RESOLUTION=320x240
+
+    # bare minimum depdencies for simple clock/display simulation ONLY
+    pip install PyYAML Pillow babel pywin32  # then hack stats.py...., alternatively
+    pip install PyYAML Pillow babel pywin32 psutil requests ping3 uptime
+
+    # Use config file res\themes\BigClock_320x240\theme.yaml
+    # Use config file res/themes/BigClock_320x240/theme.yaml
+    python theme-editor.py BigClock_320x240
+
+
+---
+
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black) ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white) ![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white) ![Python](https://img.shields.io/badge/Python-3.8/3.13-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) [![Licence](https://img.shields.io/github/license/mathoudebine/turing-smart-screen-python?style=for-the-badge)](./LICENSE)
-  
 
-A Python system monitor program and an abstraction library for **small IPS USB-C (UART) displays.**    
 
-Supported operating systems : macOS, Windows, Linux (incl. Raspberry Pi), basically all OS that support Python 3.8+  
+A Python system monitor program and an abstraction library for **small IPS USB-C (UART) displays.**
+
+Supported operating systems : macOS, Windows, Linux (incl. Raspberry Pi), basically all OS that support Python 3.8+
 
 ### Supported smart screens models:
 
@@ -28,9 +58,9 @@ Supported operating systems : macOS, Windows, Linux (incl. Raspberry Pi), basica
 | <img src="res/docs/UsbPCMonitor_5inch.webp" width="60%" height="60%"/>                              | <img src="res/docs/kipye-qiye-35.webp" width="60%" height="60%"/>                       |
 | Unknown manufacturer, visually similar to Turing 3.5" / 5". Original software is `UsbPCMonitor.exe` | Front panel has an engraved inscription "奇叶智显" Qiye Zhixian (Qiye Smart Display)        |
 
-### [> What is my smart screen model?](https://github.com/mathoudebine/turing-smart-screen-python/wiki/Hardware-revisions)  
+### [> What is my smart screen model?](https://github.com/mathoudebine/turing-smart-screen-python/wiki/Hardware-revisions)
 
-**Please note all listed smart screens are different products** designed and produced by different companies, despite having a similar appearance. Their communication protocol is also different.  
+**Please note all listed smart screens are different products** designed and produced by different companies, despite having a similar appearance. Their communication protocol is also different.
 This project offers an abstraction layer to manage all of these products in a unified way, including some product-specific features like backplate RGB LEDs for available models!
 
 If you haven't received your screen yet but want to start developing your theme now, you can use the [**"simulated LCD" mode!**](https://github.com/mathoudebine/turing-smart-screen-python/wiki/Simulated-display)
@@ -63,10 +93,10 @@ There are 2 possible uses of this project Python code:
 
 ## System monitor
 
-This project is mainly a complete standalone program to use your screen as a system monitor, like the original vendor app.  
-Some themes are already included for a quick start!  
+This project is mainly a complete standalone program to use your screen as a system monitor, like the original vendor app.
+Some themes are already included for a quick start!
 ### [> Configure and start system monitor](https://github.com/mathoudebine/turing-smart-screen-python/wiki/System-monitor-:-how-to-start)
-<img src="res/docs/config_wizard.png"/>  
+<img src="res/docs/config_wizard.png"/>
 
 * Fully functional multi-OS code base (operates out of the box, tested on Windows, Linux & MacOS).
 * Display configuration using GUI configuration wizard or `config.yaml` file: no Python code to edit.
@@ -95,7 +125,7 @@ If you don't want to use your screen for system monitoring, you can just use thi
 - Turn the screen on/off
 - Display soft reset
 - Set brightness
-- Set backplate RGB LEDs color (on supported hardware rev.) 
+- Set backplate RGB LEDs color (on supported hardware rev.)
 
 This project will act as an abstraction library to handle specific protocols and capabilities of each supported smart screen models in a transparent way for the user.
 Check `simple-program.py` as an example.
@@ -107,7 +137,7 @@ If you have trouble running the program as described in the wiki, please check [
 
 ## They're talking about it!
 
-* [Hackaday - Cheap LCD Uses USB Serial](https://hackaday.com/2023/09/11/cheap-lcd-uses-usb-serial/)  
+* [Hackaday - Cheap LCD Uses USB Serial](https://hackaday.com/2023/09/11/cheap-lcd-uses-usb-serial/)
 
 
 * [CNX Software - Turing Smart Screen – A low-cost 3.5-inch USB Type-C information display](https://www.cnx-software.com/2022/04/29/turing-smart-screen-a-low-cost-3-5-inch-usb-type-c-information-display/)

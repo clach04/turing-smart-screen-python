@@ -24,9 +24,12 @@ from enum import Enum
 from math import ceil
 from typing import Optional
 
-import serial
 from PIL import Image
-from serial.tools.list_ports import comports
+try:
+    import serial
+    from serial.tools.list_ports import comports
+except ModuleNotFoundError:
+    serial = comports = None  # TODO wrap with better error reporting
 
 from library.lcd.lcd_comm import Orientation, LcdComm
 from library.log import logger

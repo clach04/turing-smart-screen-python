@@ -19,7 +19,11 @@
 
 import struct
 
-from serial.tools.list_ports import comports
+try:
+    import serial
+    from serial.tools.list_ports import comports
+except ModuleNotFoundError:
+    serial = comports = None  # TODO wrap with better error reporting
 
 from library.lcd.lcd_comm import *
 from library.log import logger

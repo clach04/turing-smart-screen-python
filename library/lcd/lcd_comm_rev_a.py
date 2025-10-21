@@ -20,8 +20,15 @@ import time
 from enum import Enum
 from typing import Optional
 
-from serial.tools.list_ports import comports
-import numpy as np
+try:
+    import serial
+    from serial.tools.list_ports import comports
+except ModuleNotFoundError:
+    serial = None  # TODO wrap with better error reporting
+try:
+    import numpy as np
+except ModuleNotFoundError:
+    numpy = np = None  # TODO wrap with better error reporting
 
 from library.lcd.lcd_comm import *
 from library.log import logger

@@ -27,7 +27,10 @@ from abc import ABC, abstractmethod
 from enum import IntEnum
 from typing import Tuple, List, Optional, Dict
 
-import serial
+try:
+    import serial
+except ModuleNotFoundError:
+    serial = None  # TODO wrap with better error reporting
 from PIL import Image, ImageDraw, ImageFont
 
 from library.log import logger
@@ -410,7 +413,7 @@ class LcdComm(ABC):
         count = 0
         for value in values:
             if not math.isnan(value):
-                # Don't let the set value exceed our min or max value, this is bad :)                
+                # Don't let the set value exceed our min or max value, this is bad :)
                 if value < min_value:
                     value = min_value
                 elif max_value < value:
@@ -457,18 +460,18 @@ class LcdComm(ABC):
             else:
                 x_f = math.ceil(x_f)
         else:
-             x_f = math.floor(x_f + 0.5) 
-            
-        y_f = (i_sin * (radius - width/2)) + radius 
+             x_f = math.floor(x_f + 0.5)
+
+        y_f = (i_sin * (radius - width/2)) + radius
         if math.modf(y_f) == 0.5:
             if i_sin > 0:
                 y_f = math.floor(y_f)
             else:
                 y_f = math.ceil(y_f)
         else:
-            y_f = math.floor(y_f + 0.5)            
-        draw.ellipse([x_f - width/2, y_f - width/2, x_f + width/2, y_f - 1 + width/2 - 1], outline=color, fill=color, width=1)   
-      
+            y_f = math.floor(y_f + 0.5)
+        draw.ellipse([x_f - width/2, y_f - width/2, x_f + width/2, y_f - 1 + width/2 - 1], outline=color, fill=color, width=1)
+
 
     def DisplayRadialProgressBar(self, xc: int, yc: int, radius: int, bar_width: int,
                                  min_value: int = 0,
@@ -491,7 +494,7 @@ class LcdComm(ABC):
                                  text_offset: Tuple[int, int] = (0,0),
                                  bar_background_color: Color = (0, 0, 0),
                                  draw_bar_background: bool = False,
-                                 bar_decoration: str = ""):                                 
+                                 bar_decoration: str = ""):
         # Generate a radial progress bar and display it
         # Provide the background image path to display progress bar with transparent background
 
@@ -560,8 +563,8 @@ class LcdComm(ABC):
                 else:
                     angleS = angle_start
                     angleE = angle_start + ecart
-                draw.arc([0, 0, diameter - 1, diameter - 1], angleS, angleE, fill=bar_background_color, width=bar_width) 
-                
+                draw.arc([0, 0, diameter - 1, diameter - 1], angleS, angleE, fill=bar_background_color, width=bar_width)
+
             # draw bar decoration
             if bar_decoration == "Ellipse":
                 self.DrawRadialDecoration(draw = draw, angle = angle_end, radius = radius, width = bar_width, color = bar_background_color)
@@ -610,7 +613,7 @@ class LcdComm(ABC):
                 else:
                     angleS = angle_start - ecart
                     angleE = angle_start
-                draw.arc([0, 0, diameter - 1, diameter - 1], angleS, angleE, fill=bar_background_color, width=bar_width) 
+                draw.arc([0, 0, diameter - 1, diameter - 1], angleS, angleE, fill=bar_background_color, width=bar_width)
 
 
             # draw bar decoration
@@ -619,7 +622,7 @@ class LcdComm(ABC):
                 self.DrawRadialDecoration(draw = draw, angle = angle_start, radius = radius, width = bar_width, color = bar_color)
                 self.DrawRadialDecoration(draw = draw, angle = angle_start - pct * ecart, radius = radius, width = bar_width, color = bar_color)
 
-            #      
+            #
             # solid bar case
             if angle_sep == 0:
                 if angle_end < angle_start:
