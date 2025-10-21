@@ -59,6 +59,7 @@ def load_theme():
         THEME_DATA['PATH'] = str(MAIN_DIRECTORY / theme_path) + "/"
     except:
         logger.error("Theme not found or contains errors!")
+        raise  # show something more useful
         try:
             sys.exit(0)
         except:
